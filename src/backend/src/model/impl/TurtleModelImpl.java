@@ -63,6 +63,13 @@ public class TurtleModelImpl implements TurtleModel {
         return dAngle;
     }
 
+    @Override
+    public double leftBy(double angle) throws InterpretationException {
+        var toAngle = (pa.angle()-angle+360)%360;
+        pa.setAngle(toAngle);
+        return angle;
+    }
+
     public double getX(){return pa.x();}
     public double getY(){return pa.y();}
     public double getAngle(){return pa.angle();}

@@ -119,6 +119,11 @@ public class TurtleManagerImpl implements TurtleManager {
     }
 
     @Override
+    public double leftBy(double angle) throws InterpretationException {
+        return batchOperation(t -> t.leftBy(angle));
+    }
+
+    @Override
     public double getX() throws InterpretationException { return batchOperation(TurtleModel::getX); }
 
     @Override
