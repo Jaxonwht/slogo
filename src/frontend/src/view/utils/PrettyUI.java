@@ -13,7 +13,7 @@ import java.util.Set;
 public class PrettyUI {
     private static final String DEFAULT_FONT = "consolas";
 
-    private static final String CARET = CommandView.CARET;
+    private static final String CARET = "<<:";
     private static final String SPACE = " ";
     private static final String EMPTY = "";
 
@@ -102,7 +102,7 @@ public class PrettyUI {
                     else elms.addAll(PrettyUI.plain(token, CARET, size));
                 } elms.add(new Text("\n"));
             }
-        } elms.remove(elms.size()-1);
+        }
         return elms;
     }
 
