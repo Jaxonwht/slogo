@@ -9,6 +9,7 @@ import engine.compiler.slogoast.Expression;
 import engine.errors.UndefinedKeywordException;
 
 import java.util.List;
+import java.util.regex.Pattern;
 
 /**
  * This class handles the preliminary testing of Lexer, Parser and Interpreter.
@@ -24,17 +25,13 @@ public class Lexer_Parser_Interpreter_Tester {
     public static void main(String[] args) {
         Lexer lexer = new CrudeLexer();
 //        String test = "dotimes [:d 4] [fd sin 50 back 5 6]";
-        String test = "to square [ :distance ]\n" +
-                "[\n" +
-                "  repeat 4 [\n" +
-                "    fd :distance\n" +
-                "    rt 90\n" +
-                "  ]\n" +
-                "]";
+        String test = "# sfsf\n" +
+                "fd 10";
         try {
             lexer.readString(test);
         } catch (UndefinedKeywordException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
+            return;
         }
         List<Token> testSet = lexer.getTokens();
         System.out.println("The input String is:\n\n" + test + "\n");
@@ -49,6 +46,7 @@ public class Lexer_Parser_Interpreter_Tester {
             parser.readTokens(testSet);
         } catch (CommandSyntaxException e) {
             System.out.println(e.getMessage());
+            return;
         }
         Expression result = parser.returnAST();
         System.out.println("The String representation of the syntax tree is:\n\n" + result.toString());
