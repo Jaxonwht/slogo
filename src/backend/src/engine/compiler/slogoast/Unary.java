@@ -46,10 +46,10 @@ public class Unary implements Expression {
             return turtleManager.forward(-value);
         }
         else if (myToken.getString().equals("Right")){
-            return turtleManager.setAngle((head + value)%360);
+            return turtleManager.leftBy(-value);
         }
         else if (myToken.getString().equals("Left")){
-            return turtleManager.setAngle((head - value)%360);
+            return turtleManager.leftBy(value);
         }
         else if (myToken.getString().equals("SetHeading")){
             return turtleManager.setAngle(value);

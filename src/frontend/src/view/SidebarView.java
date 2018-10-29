@@ -55,9 +55,9 @@ public class SidebarView {
 
     private static final String DURATION_TOOLTIP = "Adjust the duration of single movement";
     private static final String STROKE_TOOLTIP = "Adjust the stroke of lines";
-    private static final double ANIMATION_DURATION_MIN = 10;
+    private static final double ANIMATION_DURATION_MIN = 1;
     private static final double ANIMATION_DURATION_MAX = 2000;
-    private static final double ANIMATION_DURATION_PRECISION = 400;
+    private static final double ANIMATION_DURATION_PRECISION = 10;
     private static final double STROKE_MIN = 1;
     private static final double STROKE_MAX = 10;
     private static final double STROKE_PRECISION = 2;
@@ -67,7 +67,7 @@ public class SidebarView {
     private List<StackPane> buttons;
     private List<Tooltip> tooltips;
     private ColorPicker backgroundColor, penColor;
-    private VBox animationDurationWrapper;
+    private VBox sliderWrapper;
     private Slider animationDuration;
     private Slider strokeSize;
 
@@ -83,7 +83,7 @@ public class SidebarView {
         setupSliders();
 
         icons.getChildren().addAll(buttons);
-        icons.getChildren().add(animationDurationWrapper);
+        icons.getChildren().add(sliderWrapper);
         root.getChildren().add(icons);
     }
 
@@ -115,11 +115,12 @@ public class SidebarView {
     }
 
     private void setupSliders() {
-        animationDurationWrapper = new VBox();
-        animationDurationWrapper.setSpacing(BUTTON_MARGIN);
+        sliderWrapper = new VBox();
+        sliderWrapper.setSpacing(BUTTON_MARGIN);
+
         animationDuration = new Slider(ANIMATION_DURATION_MIN, ANIMATION_DURATION_MAX, ANIMATION_DURATION_PRECISION);
         strokeSize = new Slider(STROKE_MIN, STROKE_MAX, STROKE_PRECISION);
-        strokeSize.setMin(1);
+
         animationDuration.setOrientation(Orientation.VERTICAL);
         animationDuration.setShowTickMarks(true);
         animationDuration.setShowTickLabels(true);
@@ -129,11 +130,13 @@ public class SidebarView {
         strokeSize.setShowTickLabels(true);
         strokeSize.setShowTickMarks(true);
         strokeSize.setMaxHeight(SLIDER_HEIGHT);
+
         setTooltip(animationDuration, DURATION_TOOLTIP);
         setTooltip(strokeSize, STROKE_TOOLTIP);
-        animationDurationWrapper.getChildren().add(animationDuration);
-        animationDurationWrapper.getChildren().add(strokeSize);
-        animationDurationWrapper.setAlignment(Pos.TOP_LEFT);
+
+        sliderWrapper.getChildren().add(animationDuration);
+        sliderWrapper.getChildren().add(strokeSize);
+        sliderWrapper.setAlignment(Pos.TOP_LEFT);
     }
 
     private Tooltip setTooltip(Node node, String text) {
@@ -157,6 +160,6 @@ public class SidebarView {
     public StackPane languageButton() { return buttons.get(LANGUAGE_BUTTON); }
     public StackPane helpButton() { return buttons.get(HELP_BUTTON); }
     public Slider speedSlider() { return animationDuration; }
-    public Slider strokeSlider(){return strokeSize;}
+    public Slider strokeSlider(){ return strokeSize; }
     public StackPane multiTurtle(){return buttons.get(MULTI_TURTLE_BUTTON);}
 }

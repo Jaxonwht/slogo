@@ -15,6 +15,7 @@ public interface TurtleModel {
     double forward(double by) throws InterpretationException;
     double moveTo(double x, double y, boolean forcePenUp) throws InterpretationException;
     double setAngle(double angle) throws InterpretationException;
+    double leftBy(double angle) throws InterpretationException;
     double getX() throws InterpretationException;
     double getY() throws InterpretationException;
     double getAngle() throws InterpretationException;

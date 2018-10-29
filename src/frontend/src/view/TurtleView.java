@@ -28,14 +28,14 @@ import java.util.function.Consumer;
  */
 public class TurtleView implements ClearListener, UIListener {
     public static final int TURTLE_SIZE = 50;
-    private static final int ANIMATION_LIMIT = 5000;
+    private static final int ANIMATION_LIMIT = 500000;
 
     private Group views;
     private BooleanProperty penDown;
     private ImageView turtle;
     private Image turtleImg;
     private Color penColor;
-    private double strokeSize;
+    private DoubleProperty strokeSize;
     private DoubleProperty duration;
     private AnimationQueue animationQueue;
     private double tempX;
@@ -43,8 +43,15 @@ public class TurtleView implements ClearListener, UIListener {
     private double oldAngle;
     private TurtleModel model;
     private Consumer<Color> bgColorChange;
+    private Consumer<Double> penWidthChange;
 
-    public TurtleView(TurtleModel turtleModel, DoubleProperty durationModel, Consumer<Color> bgColorChange) {
+    public TurtleView(
+            TurtleModel turtleModel,
+            DoubleProperty durationModel,
+            DoubleProperty strokeWidthModel,
+            Consumer<Color> bgColorChange,
+            Consumer<Double> penWidthChange
+    ) {
         views = new Group();
         turtleImg = ImageUtils.getImageFromUrl("turtle_1.png", TURTLE_SIZE, TURTLE_SIZE);
         turtle = new ImageView(turtleImg);
@@ -62,7 +69,6 @@ public class TurtleView implements ClearListener, UIListener {
         tempX = turtle.getX()+ TURTLE_SIZE/2;
         tempY = turtle.getY()+ TURTLE_SIZE/2;
         oldAngle = 0;
-        strokeSize = 1;
         turtle.visibleProperty().bind(turtleModel.isVisibleModel());
         views.getChildren().add(turtle);
 
@@ -72,10 +78,13 @@ public class TurtleView implements ClearListener, UIListener {
 
         duration = new SimpleDoubleProperty();
         duration.bind(durationModel);
+        strokeSize = new SimpleDoubleProperty();
+        strokeSize.bind(strokeWidthModel);
         animationQueue = new AnimationQueue(ANIMATION_LIMIT);
         bindObservable(turtleModel);
 
         this.bgColorChange = bgColorChange;
+        this.penWidthChange = penWidthChange;
 
         model = turtleModel;
         model.registerClearListener(this);
@@ -135,7 +144,7 @@ public class TurtleView implements ClearListener, UIListener {
         double currentY = turtle.getY()+TURTLE_SIZE/2+o/duration.doubleValue() *(newY-turtle.getY());
         path.getElements().add(new LineTo(currentX,currentY));
         path.setStroke(penColor);
-        path.setStrokeWidth(strokeSize);
+        path.setStrokeWidth(strokeSize.getValue());
         return path;
     }
 
@@ -157,9 +166,8 @@ public class TurtleView implements ClearListener, UIListener {
     public void setPenColor(String colorStr) { penColor = Color.valueOf(colorStr); }
 
     @Override
-    public void setPenSize(int pixels) { this.strokeSize = pixels; }
+    public void setPenSize(int pixels) { penWidthChange.accept((double) pixels); }
 
     @Override
     public void setShape(String shapeStr) { }
-    // parse the shapeString
 }

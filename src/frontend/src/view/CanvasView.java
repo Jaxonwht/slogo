@@ -32,7 +32,6 @@ public class CanvasView {
     private Map<Integer, TurtleView> turtleViews;
     private Rectangle selection;
 
-
     public CanvasView() {
         root = new Pane();
         setBackgroundColor(Color.WHITE);
@@ -45,15 +44,16 @@ public class CanvasView {
         selection.setStroke(Color.BLACK);
         selection.setStrokeWidth(5.0);
         root.getChildren().add(selection);
-        duration.addListener((observable, oldValue, newValue) -> {
-            for (TurtleView tv: turtleViews.values()) tv.setPenSize(newValue.intValue());
-        });
     }
 
     public void addTurtle(int id, TurtleModel model) {
-        var newView = new TurtleView(model, duration, this::setBackgroundColor);
+        var newView = new TurtleView(model, duration, stroke, this::setBackgroundColor, this::setPenWidth);
         turtleViews.put(id, newView);
         root.getChildren().addAll(newView.views());
+    }
+
+    private void setPenWidth(double width) {
+        stroke.setValue(width);
     }
 
     public List<Integer> turtlesInSelection() {

@@ -47,8 +47,6 @@ public class HistoryView {
         display.getChildren().add(new HistoryUnit(text, e).flow());
     }
 
-    public void setLanguage(String lang) { }
-
     private class HistoryUnit {
         private TextFlow flow;
 
@@ -61,7 +59,7 @@ public class HistoryView {
         private HistoryUnit(String command, Exception e) {
             this(command);
             flow.getChildren().add(new Text("\n"));
-            flow.getChildren().addAll(PrettyUI.error(e.getMessage().trim(), FONT_SIZE));
+            flow.getChildren().addAll(PrettyUI.error(e.toString().trim(), FONT_SIZE));
         }
 
         private HistoryUnit(String command, double retVal) {
