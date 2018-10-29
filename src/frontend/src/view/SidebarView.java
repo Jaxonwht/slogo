@@ -55,9 +55,9 @@ public class SidebarView {
 
     private static final String DURATION_TOOLTIP = "Adjust the duration of single movement";
     private static final String STROKE_TOOLTIP = "Adjust the stroke of lines";
-    private static final double ANIMATION_DURATION_MIN = 10;
+    private static final double ANIMATION_DURATION_MIN = 1;
     private static final double ANIMATION_DURATION_MAX = 2000;
-    private static final double ANIMATION_DURATION_PRECISION = 400;
+    private static final double ANIMATION_DURATION_PRECISION = 10;
     private static final double STROKE_MIN = 1;
     private static final double STROKE_MAX = 10;
     private static final double STROKE_PRECISION = 2;

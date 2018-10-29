@@ -28,7 +28,7 @@ import java.util.function.Consumer;
  */
 public class TurtleView implements ClearListener, UIListener {
     public static final int TURTLE_SIZE = 50;
-    private static final int ANIMATION_LIMIT = 5000;
+    private static final int ANIMATION_LIMIT = 500000;
 
     private Group views;
     private BooleanProperty penDown;
