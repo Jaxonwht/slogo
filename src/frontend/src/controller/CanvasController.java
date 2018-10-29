@@ -102,7 +102,7 @@ public class CanvasController implements SelectionListener {
     public void setPenColor(Color c) { turtleManager.selected().forEach(idx -> canvasView.setPenColor(idx, c)); }
     public void setTurtleImage(Image img) { turtleManager.selected().forEach(idx -> canvasView.setImage(idx, img));}
     public void bindDuration(DoubleProperty model) { canvasView.durationProperty().bind(model); }
-    public void bindStroke(DoubleProperty stroke) {canvasView.durationProperty().bind(stroke);}
+    public void bindStroke(DoubleProperty stroke) { canvasView.strokeProperty().bindBidirectional(stroke); }
     public void setBackgroundColor(Color c) { canvasView.setBackgroundColor(c); }
 
     @Override

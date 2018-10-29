@@ -43,12 +43,7 @@ public class ControllerModule {
         sidebarController = new SidebarController(DEFAULT_LANG, app, viewModule.sidebarView(), modelModule.turtleManager(), setEngineLanguage);
         canvasController = new CanvasController(modelModule.turtleManager(), viewModule.canvasView());
         assemble();
-        setupTopLevelHandler(viewModule.mainView().view());
     }
 
     private void assemble() { sidebarController.registerControllers(editorController, canvasController); }
-
-    private void setupTopLevelHandler(Node topLevelNode) {
-        topLevelNode.addEventFilter(KeyEvent.KEY_PRESSED, editorController::handleKeyPressed);
-    }
 }
