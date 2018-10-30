@@ -259,6 +259,9 @@ public class CrudeParser implements Parser {
         if (expressionPair.getKey() == null) {
             throw generateSyntaxException("Illegal format for an expression after the \"ifelse\" keyword", expressionPair.getValue());
         }
+        if (expressionPair.getKey() instanceof UserFunction) {
+            throw generateSyntaxException("If the expression directly after the keyword in an ifelse statement is a user-defined function, it must be bracketed by \"()\"", ifElsePair.getValue());
+        }
         Pair<Expression, Integer> listAPair = parseExpressionList(expressionPair.getValue());
         if (listAPair.getKey() == null) {
             throw generateSyntaxException("Illegal format for a list of expressions that is run when the ifelse expression is evaluated true", listAPair.getValue());
@@ -283,6 +286,10 @@ public class CrudeParser implements Parser {
         Pair<Expression, Integer> commandPair = parseVariable(makeUserInstructionPair.getValue());
         if (commandPair.getKey() == null) {
             throw generateSyntaxException("Missing a valid variable name to store the user-made function after the \"to\" keyword", commandPair.getValue());
+        }
+        Variable var = (Variable) commandPair.getKey();
+        if (var.getVariableName().startsWith(":")) {
+            throw generateSyntaxException("The name of a user defined function cannot start with :", commandPair.getValue());
         }
         Pair<Expression, Integer> variableListPair = parseVariableList(commandPair.getValue());
         if (variableListPair.getKey() == null) {
@@ -339,6 +346,10 @@ public class CrudeParser implements Parser {
         Pair<Expression, Integer> nullPair = new Pair<>(null, index);
         Pair<Expression, Integer> variablePair = parseVariable(index);
         if (variablePair.getKey() == null) {
+            return nullPair;
+        }
+        Variable var = (Variable) variablePair.getKey();
+        if (var.getVariableName().startsWith(":")) {
             return nullPair;
         }
         Pair<Expression, Integer> expressionListPair = parseExpressionList(variablePair.getValue());
@@ -472,8 +483,8 @@ public class CrudeParser implements Parser {
         if (expressionPair.getKey() == null) {
             throw generateSyntaxException("Illegal format for expression value after a keyword in the repeat or if loop", expressionPair.getValue());
         }
-        if (!(expressionPair.getKey() instanceof Group) && !(expressionPair.getKey() instanceof Variable) && !(expressionPair.getKey() instanceof Direct)) {
-            throw generateSyntaxException("The expression directly after the keyword in a repeat or if statement has to be a direct command, a constant or an expression (including a single variable) bracketed by \"()\"", expressionPair.getValue());
+        if (expressionPair.getKey() instanceof UserFunction) {
+            throw generateSyntaxException("If the expression directly after the keyword in an ifelse statement is a user-defined function, it must be bracketed by \"()\"", conditionPair.getValue());
         }
         Pair<Expression, Integer> expressionListPair = parseExpressionList(expressionPair.getValue());
         if (expressionListPair.getKey() == null) {

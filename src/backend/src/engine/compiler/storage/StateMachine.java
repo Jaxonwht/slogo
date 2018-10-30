@@ -2,6 +2,7 @@ package engine.compiler.storage;
 
 import engine.compiler.slogoast.Expression;
 import engine.errors.InterpretationException;
+import engine.errors.UndefinedKeywordException;
 
 import java.io.Serializable;
 import java.util.Map;
@@ -59,7 +60,7 @@ public interface StateMachine {
      * @param key
      * @return The type of the variable.
      */
-    VariableType getVariableType(String key) throws InterpretationException;
+    VariableType getVariableType(String key) throws UndefinedKeywordException;
 
     /**
      * Get the value of the variable as an Object from the aggregate map.
@@ -67,14 +68,14 @@ public interface StateMachine {
      * @param key
      * @return An Object representation of the value of the variable.
      */
-    Object getValueInGeneralForm(String key) throws InterpretationException;
+    Object getValueInGeneralForm(String key) throws UndefinedKeywordException;
 
     /**
      * Remove the key entry from the map.
      *
      * @param key
      */
-    void removeVariable(String key) throws InterpretationException;
+    void removeVariable(String key) throws UndefinedKeywordException;
 
     /**
      * Clear all state variables in the state machine.
@@ -113,12 +114,4 @@ public interface StateMachine {
      * @return A String representation of the StateMachine.
      */
     String toString();
-
-    /**
-     * Look at the local variable and then the global variables for the queried variable.
-     *
-     * @return The value of the variable.
-     * @param key
-     */
-    Object getValue(String key) throws InterpretationException;
 }

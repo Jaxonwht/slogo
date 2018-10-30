@@ -2,6 +2,7 @@ package model;
 
 import engine.compiler.storage.StateMachine;
 import engine.errors.InterpretationException;
+import engine.errors.UndefinedKeywordException;
 import javafx.beans.property.SimpleBooleanProperty;
 
 public interface TurtleModel {
@@ -10,18 +11,18 @@ public interface TurtleModel {
 
     void equipMemory(StateMachine memory);
 
-    double setPenDown(boolean down) throws InterpretationException;
-    double setVisible(boolean visible) throws InterpretationException;
-    double forward(double by) throws InterpretationException;
-    double moveTo(double x, double y, boolean forcePenUp) throws InterpretationException;
-    double setAngle(double angle) throws InterpretationException;
-    double leftBy(double angle) throws InterpretationException;
-    double getX() throws InterpretationException;
-    double getY() throws InterpretationException;
-    double getAngle() throws InterpretationException;
+    double setPenDown(boolean down) throws InterpretationException, UndefinedKeywordException;
+    double setVisible(boolean visible) throws InterpretationException, UndefinedKeywordException;
+    double forward(double by) throws InterpretationException, UndefinedKeywordException;
+    double moveTo(double x, double y, boolean forcePenUp) throws InterpretationException, UndefinedKeywordException;
+    double setAngle(double angle) throws InterpretationException, UndefinedKeywordException;
+    double leftBy(double angle) throws InterpretationException, UndefinedKeywordException;
+    double getX() throws InterpretationException, UndefinedKeywordException;
+    double getY() throws InterpretationException, UndefinedKeywordException;
+    double getAngle() throws InterpretationException, UndefinedKeywordException;
 
-    boolean isPenDown() throws InterpretationException;
-    boolean isVisible() throws InterpretationException;
+    boolean isPenDown() throws InterpretationException, UndefinedKeywordException;
+    boolean isVisible() throws InterpretationException, UndefinedKeywordException;
     SimpleBooleanProperty isPenDownModel();
     SimpleBooleanProperty isVisibleModel();
     PosAndAngle posAndAngleModel();
@@ -30,13 +31,13 @@ public interface TurtleModel {
      * I honestly feel like this shouldn't be here ... but it's easy to do
      * @blame inchan hwang
      */
-    int setBackground(int index) throws InterpretationException;
-    int setPenColor(int index) throws InterpretationException;
-    int setPenSize(int pixels) throws InterpretationException;
-    int setShape(int index) throws InterpretationException;
+    int setBackground(int index) throws InterpretationException, UndefinedKeywordException;
+    int setPenColor(int index) throws InterpretationException, UndefinedKeywordException;
+    int setPenSize(int pixels) throws InterpretationException, UndefinedKeywordException;
+    int setShape(int index) throws InterpretationException, UndefinedKeywordException;
 
     StateMachine memory();
     void registerClearListener(ClearListener cl);
     void registerUIListener(UIListener ul);
-    double clear() throws InterpretationException;
+    double clear() throws InterpretationException, UndefinedKeywordException;
 }

@@ -57,7 +57,7 @@ public class Condition implements Expression {
                 boolean reset = turtleManager.memory().containsVariable(LOOP_COUNT);
                 int oldValue = 0;
                 if (reset) {
-                    oldValue = (int) turtleManager.memory().getValue(LOOP_COUNT);
+                    oldValue = (int) turtleManager.memory().getValueInGeneralForm(LOOP_COUNT);
                 }
                 double ret = 0;
                 for (int i = 1; i <= times; i++) {

@@ -45,7 +45,7 @@ public class Variable implements Expression {
                 throw new UndefinedKeywordException(String.format("The user function \"%s\" is not defined yet", variableName));
             }
         }
-        Object value = turtleManager.memory().getValue(variableName);
+        Object value = turtleManager.memory().getValueInGeneralForm(variableName);
         VariableType type = turtleManager.memory().getVariableType(variableName);
         if (type == VariableType.STRING) {
             throw new InterpretationException(String.format("The variable \"%s\" defined as a String", variableName));

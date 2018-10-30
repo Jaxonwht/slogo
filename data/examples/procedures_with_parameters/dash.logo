@@ -1,15 +1,15 @@
-to :dash [ :count :size ]
+to dash [ :count :size ]
 [
-  repeat (:count)
+  repeat :count
   [
     pu fd :size pd fd :size
   ]
 ]
 
-:dash [20 8]
+dash [20 8]
 rt 60
-:dash [8 20]
+dash [8 20]
 rt 60
-:dash [10 10]
+dash [10 10]
 
-
+to x [ fd 10]

@@ -2,6 +2,7 @@ package engine.compiler.storage;
 
 import engine.compiler.slogoast.Expression;
 import engine.errors.InterpretationException;
+import engine.errors.UndefinedKeywordException;
 
 import java.util.*;
 
@@ -90,9 +91,9 @@ public class StateMachineV2 implements StateMachine{
      * @return The type of the variable.
      */
     @Override
-    public VariableType getVariableType(String key) throws InterpretationException {
+    public VariableType getVariableType(String key) throws UndefinedKeywordException {
         if (!typeMap.containsKey(key)) {
-            throw new InterpretationException(String.format("The variable \"%s\" is not defined in the global scope, therefore its type cannot be determined", key));
+            throw new UndefinedKeywordException(String.format("The variable \"%s\" is not defined in the global scope, therefore its type cannot be determined", key));
         }
         return typeMap.get(key);
     }
@@ -104,9 +105,9 @@ public class StateMachineV2 implements StateMachine{
      * @return An Object representation of the value of the variable.
      */
     @Override
-    public Object getValueInGeneralForm(String key) throws InterpretationException {
+    public Object getValueInGeneralForm(String key) throws UndefinedKeywordException {
         if (!valueMap.containsKey(key)) {
-            throw new InterpretationException(String.format("The variable \"%s\" is not defined in the global scope, therefore its value cannot be determined", key));
+            throw new UndefinedKeywordException(String.format("The variable \"%s\" is not defined in the global scope, therefore its value cannot be determined", key));
         }
         return valueMap.get(key);
     }
@@ -117,9 +118,9 @@ public class StateMachineV2 implements StateMachine{
      * @param key
      */
     @Override
-    public void removeVariable(String key) throws InterpretationException {
+    public void removeVariable(String key) throws UndefinedKeywordException {
         if (!valueMap.containsKey(key)) {
-            throw new InterpretationException(String.format("The variable \"%s\" is not defined in the global scope, therefore it cannot be removed",key));
+            throw new UndefinedKeywordException(String.format("The variable \"%s\" is not defined in the global scope, therefore it cannot be removed",key));
         }
         valueMap.remove(key);
         typeMap.remove(key);
@@ -188,20 +189,5 @@ public class StateMachineV2 implements StateMachine{
             ans += entry.getKey() + " = " + entry.getValue() + "\n";
         }
         return ans;
-    }
-
-    /**
-     * Look at the local variable and then the global variables for the queried variable.
-     *
-     * @return The value of the variable.
-     * @param key
-     */
-    @Override
-    public Object getValue(String key) throws InterpretationException {
-            try {
-                return getValueInGeneralForm(key);
-            } catch (InterpretationException e1) {
-                throw new InterpretationException(String.format("The variable \"%s\" is not defined either in the local or global scope, so its value cannot be determined", key));
-            }
     }
 }
