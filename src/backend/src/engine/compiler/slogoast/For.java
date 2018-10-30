@@ -13,22 +13,18 @@ import model.TurtleManager;
  */
 public class For implements Expression {
     private Token myToken;
-    private Token start;
     private Variable var;
     private Expression min;
     private Expression max;
     private Expression step;
-    private Token end;
     private ExpressionList expressionList;
 
-    public For(Token token, Token firstStart, Variable variable, Expression lower, Expression higher, Expression increment, Token firstEnd, ExpressionList list) {
+    public For(Token token, Variable variable, Expression lower, Expression higher, Expression increment, ExpressionList list) {
         myToken = token;
-        start = firstStart;
         var = variable;
         min = lower;
         max = higher;
         step = increment;
-        end = firstEnd;
         expressionList = list;
     }
 
@@ -39,7 +35,7 @@ public class For implements Expression {
      */
     @Override
     public String toString() {
-        return String.format("{%s %s %s %s %s %s %s %s}", myToken.getString(), start.getString(), var.toString(), min.toString(), max.toString(), step.toString(), end.getString(), expressionList.toString());
+        return String.format("{%s [%s %s %s %s] %s}", myToken.getString(), var.toString(), min.toString(), max.toString(), step.toString(), expressionList.toString());
     }
 
     /**

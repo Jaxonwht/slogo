@@ -22,7 +22,7 @@ public class Group implements Expression {
      */
     @Override
     public String toString() {
-        return String.format("{(%s)}", myExpr.toString());
+        return String.format("(%s)", myExpr.toString());
     }
 
     /**

@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
  *
  * @author Haotian Wang
  */
-public class Lexer_Parser_Interpreter_Tester {
+public class LexerParserTester {
     /**
      * A main method to test the functionality.
      *
@@ -25,8 +25,14 @@ public class Lexer_Parser_Interpreter_Tester {
     public static void main(String[] args) {
         Lexer lexer = new CrudeLexer();
 //        String test = "dotimes [:d 4] [fd sin 50 back 5 6]";
-        String test = "# sfsf\n" +
-                "fd 10";
+        String test = "to :petal [ :size ]\n" +
+                "[\n" +
+                "  repeat 2\n" +
+                "  [\n" +
+                "    :arc [:size 60]\n" +
+                "    rt 120\n" +
+                "  ]\n" +
+                "]";
         try {
             lexer.readString(test);
         } catch (UndefinedKeywordException e) {
@@ -34,10 +40,10 @@ public class Lexer_Parser_Interpreter_Tester {
             return;
         }
         List<Token> testSet = lexer.getTokens();
-        System.out.println("The input String is:\n\n" + test + "\n");
+        System.out.println("The input String is:\n\n" + test + "\n\n");
         System.out.println("Lexer's Part\n======\nThe list of tokens is:\n");
         for (Token token : testSet) {
-            System.out.println(token.toString());
+            System.out.println(token.toString() + "\n");
         }
 
         System.out.println("\nParser's Part\n======");

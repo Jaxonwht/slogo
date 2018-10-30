@@ -21,10 +21,10 @@ to outlinepoly [ :length :angle ]
 
 
 # try these
-outlinepoly 50 45
-# outlinepoly 50 125
-# outlinepoly 50 144
+# outlinepoly [50 45]
+outlinepoly [50 125]
+# outlinepoly [50 144]
 
-# poly 50 60
-# poly 50 135
-# poly 50 144
+# poly [50 60]
+# poly [50 135]
+# poly [50 144]

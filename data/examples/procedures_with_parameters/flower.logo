@@ -10,12 +10,12 @@ to :petal [ :size ]
 [
   repeat 2
   [
-    atan :size 60
+    :arc [:size 60]
     rt 120
   ]
 ]
 
-to :flower [ :length ]
+to flower [ :length ]
 [
   repeat 6
   [
@@ -25,4 +25,4 @@ to :flower [ :length ]
 ]
 
 
-flower 100
+flower [20]

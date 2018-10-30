@@ -386,7 +386,7 @@ public class CrudeParser implements Parser {
         if (expressionListPair.getKey() == null) {
             throw generateSyntaxException("Illegal list of commands in a for loop", expressionListPair.getValue());
         }
-        return new Pair<>(new For(forPair.getKey(), listStart, (Variable) variablePair.getKey(), startPair.getKey(), endPair.getKey(), stepPair.getKey(), listEnd, (ExpressionList) expressionListPair.getKey()), expressionListPair.getValue());
+        return new Pair<>(new For(forPair.getKey(), (Variable) variablePair.getKey(), startPair.getKey(), endPair.getKey(), stepPair.getKey(), (ExpressionList) expressionListPair.getKey()), expressionListPair.getValue());
     }
 
     /**
