@@ -3,6 +3,7 @@ package engine.compiler.slogoast;
 import engine.compiler.Token;
 import engine.compiler.storage.VariableType;
 import engine.errors.InterpretationException;
+import engine.errors.UndefinedKeywordException;
 import model.TurtleManager;
 
 /**
@@ -46,7 +47,7 @@ public class DoTimes implements Expression {
      * @throws InterpretationException
      */
     @Override
-    public double interpret(TurtleManager turtleManager) throws InterpretationException {
+    public double interpret(TurtleManager turtleManager) throws InterpretationException, UndefinedKeywordException {
         if (myToken.getString().equals("DoTimes")) {
             int limitInt = (int) limit.evaluate(turtleManager);
             if (limitInt < 1) {

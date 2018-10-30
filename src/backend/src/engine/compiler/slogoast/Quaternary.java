@@ -2,6 +2,7 @@ package engine.compiler.slogoast;
 
 import engine.compiler.Token;
 import engine.errors.InterpretationException;
+import engine.errors.UndefinedKeywordException;
 import model.TurtleManager;
 
 /**
@@ -32,7 +33,7 @@ public class Quaternary implements Expression {
      * @throws InterpretationException
      */
     @Override
-    public double interpret(TurtleManager turtleManager) throws InterpretationException {
+    public double interpret(TurtleManager turtleManager) throws InterpretationException, UndefinedKeywordException {
         if (myToken.getString().equals("SetPalette")) {
             double indexNum = firstArg.evaluate(turtleManager);
             String index = "ColorIndex" + (int)indexNum;

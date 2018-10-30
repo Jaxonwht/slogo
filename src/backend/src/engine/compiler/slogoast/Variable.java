@@ -3,6 +3,7 @@ package engine.compiler.slogoast;
 import engine.compiler.Token;
 import engine.compiler.storage.VariableType;
 import engine.errors.InterpretationException;
+import engine.errors.UndefinedKeywordException;
 import model.TurtleManager;
 
 /**
@@ -35,8 +36,15 @@ public class Variable implements Expression {
      * @throws InterpretationException
      */
     @Override
-    public double interpret(TurtleManager turtleManager) throws InterpretationException {
+    public double interpret(TurtleManager turtleManager) throws InterpretationException, UndefinedKeywordException {
         String variableName = myToken.getString();
+        if (!turtleManager.memory().containsVariable(variableName)) {
+            if (variableName.startsWith(":")) {
+                throw new UndefinedKeywordException(String.format("The variable \"%s\" is not defined yet", variableName));
+            } else {
+                throw new UndefinedKeywordException(String.format("The user function \"%s\" is not defined yet", variableName));
+            }
+        }
         Object value = turtleManager.memory().getValue(variableName);
         VariableType type = turtleManager.memory().getVariableType(variableName);
         if (type == VariableType.STRING) {
@@ -44,7 +52,7 @@ public class Variable implements Expression {
         } else if (type == VariableType.EXPRESSION) {
             MakeUserInstruction statement = (MakeUserInstruction) value;
             if (!statement.getParameters().getListOfVariables().isEmpty()) {
-                throw new InterpretationException(String.format("The user-defined function \"%s\" takes %d parameters, please give a list of the required number of parameters", statement.getParameters().getListOfVariables().size()));
+                throw new InterpretationException(String.format("The user-defined function \"%s\" takes %d parameters, please give a list of the required number of parameters", variableName, statement.getParameters().getListOfVariables().size()));
             }
             return statement.getExpressionList().interpret(turtleManager);
         } else if (type == VariableType.DOUBLE) {

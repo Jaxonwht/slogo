@@ -3,6 +3,7 @@ package engine.compiler.slogoast;
 import engine.compiler.storage.StateMachine;
 import engine.compiler.storage.StateMachineV2;
 import engine.errors.InterpretationException;
+import engine.errors.UndefinedKeywordException;
 import model.TurtleManager;
 
 /**
@@ -37,7 +38,7 @@ public class UserFunction implements Expression {
      * @throws InterpretationException
      */
     @Override
-    public double interpret(TurtleManager turtleManager) throws InterpretationException {
+    public double interpret(TurtleManager turtleManager) throws InterpretationException, UndefinedKeywordException {
         MakeUserInstruction function = (MakeUserInstruction) turtleManager.memory().getValueInGeneralForm(myVariable.getVariableName());
         VariableList desiredParameters = function.getParameters();
         ExpressionList desiredExpressions = function.getExpressionList();

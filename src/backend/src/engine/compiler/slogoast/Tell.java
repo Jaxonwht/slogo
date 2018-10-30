@@ -2,6 +2,7 @@ package engine.compiler.slogoast;
 
 import engine.compiler.Token;
 import engine.errors.InterpretationException;
+import engine.errors.UndefinedKeywordException;
 import model.TurtleManager;
 
 import java.util.ArrayList;
@@ -29,7 +30,7 @@ public class Tell implements Expression {
      * @throws InterpretationException
      */
     @Override
-    public double interpret(TurtleManager turtleManager) throws InterpretationException {
+    public double interpret(TurtleManager turtleManager) throws InterpretationException, UndefinedKeywordException {
         if (myToken.getString().equals("Tell")) {
             List<Integer> indices = new ArrayList<>();
             for (Expression index: turtles.getListOfExpressions()){

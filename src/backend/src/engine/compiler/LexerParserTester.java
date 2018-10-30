@@ -6,7 +6,9 @@ import engine.errors.CommandSyntaxException;
 import engine.compiler.parser.CrudeParser;
 import engine.compiler.parser.Parser;
 import engine.compiler.slogoast.Expression;
+import engine.errors.InterpretationException;
 import engine.errors.UndefinedKeywordException;
+import model.impl.TurtleManagerImpl;
 
 import java.util.List;
 import java.util.regex.Pattern;
@@ -25,14 +27,17 @@ public class LexerParserTester {
     public static void main(String[] args) {
         Lexer lexer = new CrudeLexer();
 //        String test = "dotimes [:d 4] [fd sin 50 back 5 6]";
-        String test = "to :petal [ :size ]\n" +
+        String test = "set :count 12\n" +
+                "\n" +
+                "to dash [ ]\n" +
                 "[\n" +
-                "  repeat 2\n" +
+                "  repeat (:count) \n" +
                 "  [\n" +
-                "    :arc [:size 60]\n" +
-                "    rt 120\n" +
+                "    pu fd 10 pd fd 10\n" +
                 "  ]\n" +
-                "]";
+                "]\n" +
+                "\n" +
+                "\ndashas";
         try {
             lexer.readString(test);
         } catch (UndefinedKeywordException e) {

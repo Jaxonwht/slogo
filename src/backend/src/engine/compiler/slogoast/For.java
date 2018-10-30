@@ -4,6 +4,7 @@ import engine.compiler.Token;
 import engine.compiler.storage.StateMachine;
 import engine.compiler.storage.VariableType;
 import engine.errors.InterpretationException;
+import engine.errors.UndefinedKeywordException;
 import model.TurtleManager;
 
 /**
@@ -46,7 +47,7 @@ public class For implements Expression {
      * @throws InterpretationException
      */
     @Override
-    public double interpret(TurtleManager turtleManager) throws InterpretationException {
+    public double interpret(TurtleManager turtleManager) throws InterpretationException, UndefinedKeywordException {
         double ret = 0;
         if (myToken.getString().equals("For")) {
             String variableName = var.getVariableName();

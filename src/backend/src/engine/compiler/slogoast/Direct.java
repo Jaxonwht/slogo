@@ -2,6 +2,7 @@ package engine.compiler.slogoast;
 
 import engine.compiler.Token;
 import engine.errors.InterpretationException;
+import engine.errors.UndefinedKeywordException;
 import model.PosAndAngle;
 import model.TurtleManager;
 
@@ -36,7 +37,7 @@ public class Direct implements Expression {
      * @author Rahul Ramesh
      */
     @Override
-    public double interpret(TurtleManager turtleManager) throws InterpretationException {
+    public double interpret(TurtleManager turtleManager) throws InterpretationException, UndefinedKeywordException {
         if (myToken.getString().equals("PenUp")) {
             return turtleManager.setPenDown(false);
         }

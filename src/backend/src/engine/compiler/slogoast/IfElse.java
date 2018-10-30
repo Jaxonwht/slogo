@@ -2,6 +2,7 @@ package engine.compiler.slogoast;
 
 import engine.compiler.Token;
 import engine.errors.InterpretationException;
+import engine.errors.UndefinedKeywordException;
 import model.TurtleManager;
 
 /**
@@ -40,7 +41,7 @@ public class IfElse implements Expression {
      * @throws InterpretationException
      */
     @Override
-    public double interpret(TurtleManager turtleManager) throws InterpretationException {
+    public double interpret(TurtleManager turtleManager) throws InterpretationException, UndefinedKeywordException {
         double ret = 0;
         if (myToken.getString().equals("IfElse")) {
             if (expr.evaluate(turtleManager) != 0){
