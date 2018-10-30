@@ -33,7 +33,7 @@ public class Completion implements AutoCorrect {
         String ret = "";
         int min = Integer.MAX_VALUE;
         for (String word : set) {
-            if (word.startsWith(input)) {
+            if (word.toLowerCase().startsWith(input.toLowerCase())) {
                 if (word.length() < min) {
                     min = word.length();
                     ret = word;
@@ -53,7 +53,7 @@ public class Completion implements AutoCorrect {
     public List<String> listClosestStrings(String input) {
         Set<String> tempSet = new TreeSet<>(Comparator.comparingInt(String::length));
         for (String word : set) {
-            if (word.startsWith(input)) {
+            if (word.toLowerCase().startsWith(input.toLowerCase())) {
                 tempSet.add(word);
             }
         }
