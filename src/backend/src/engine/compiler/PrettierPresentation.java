@@ -38,7 +38,7 @@ public class PrettierPresentation {
                 sb.append(charMultiplier('\t', stack.size()));
                 sb.append(c);
                 sb.append('\n');
-            } else if (Character.isWhitespace(c)) {
+            } else if (Character.isWhitespace(c) || c == ',') {
                 continue;
             } else {
                 if (sb.length() != 0 && sb.charAt(sb.length() - 1) == '\n') {
