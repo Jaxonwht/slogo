@@ -56,5 +56,6 @@ public class LexerParserTester {
         }
         Expression result = parser.returnAST();
         System.out.println("The String representation of the syntax tree is:\n\n" + result.toString());
+        System.out.println("\nA prettier presentation is:\n\n" + PrettierPresentation.prettify(result.toString()));
     }
 }
