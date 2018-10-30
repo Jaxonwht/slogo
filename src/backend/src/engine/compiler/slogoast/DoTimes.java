@@ -58,7 +58,7 @@ public class DoTimes implements Expression {
                 boolean reset = turtleManager.memory().containsVariable(variableName);
                 var old = 0;
                 if (reset){
-                    old = (int)turtleManager.memory().getValue(variableName);
+                    old = (int)turtleManager.memory().getValueInGeneralForm(variableName);
                 }
 
                 double ret = 0;

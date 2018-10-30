@@ -284,6 +284,10 @@ public class CrudeParser implements Parser {
         if (commandPair.getKey() == null) {
             throw generateSyntaxException("Missing a valid variable name to store the user-made function after the \"to\" keyword", commandPair.getValue());
         }
+        Variable var = (Variable) commandPair.getKey();
+        if (var.getVariableName().startsWith(":")) {
+            throw generateSyntaxException("The name of a user defined function cannot start with :", commandPair.getValue());
+        }
         Pair<Expression, Integer> variableListPair = parseVariableList(commandPair.getValue());
         if (variableListPair.getKey() == null) {
             throw generateSyntaxException("Illegal format for defining a list of variables for use with the user-defined function", variableListPair.getValue());
@@ -339,6 +343,10 @@ public class CrudeParser implements Parser {
         Pair<Expression, Integer> nullPair = new Pair<>(null, index);
         Pair<Expression, Integer> variablePair = parseVariable(index);
         if (variablePair.getKey() == null) {
+            return nullPair;
+        }
+        Variable var = (Variable) variablePair.getKey();
+        if (var.getVariableName().startsWith(":")) {
             return nullPair;
         }
         Pair<Expression, Integer> expressionListPair = parseExpressionList(variablePair.getValue());

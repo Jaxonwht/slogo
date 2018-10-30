@@ -2,6 +2,7 @@ package engine.compiler.storage;
 
 import engine.compiler.slogoast.Expression;
 import engine.errors.InterpretationException;
+import engine.errors.UndefinedKeywordException;
 
 import java.util.*;
 
@@ -160,9 +161,9 @@ public class CrudeStateMachine implements StateMachine {
      * @return A String representation of the type of the variable.
      */
     @Override
-    public VariableType getVariableType(String key) throws InterpretationException {
+    public VariableType getVariableType(String key) throws UndefinedKeywordException {
         if (!typeMap.containsKey(key)) {
-            throw new InterpretationException(String.format("The variable %s is not defined, therefore its type cannot be determined", key));
+            throw new UndefinedKeywordException(String.format("The variable %s is not defined, therefore its type cannot be determined", key));
         }
         return typeMap.get(key);
     }
@@ -174,9 +175,9 @@ public class CrudeStateMachine implements StateMachine {
      * @return An Object representation of the value of the variable.
      */
     @Override
-    public Object getValueInGeneralForm(String key) throws InterpretationException {
+    public Object getValueInGeneralForm(String key) throws UndefinedKeywordException {
         if (!aggregateMap.containsKey(key)) {
-            throw new InterpretationException(String.format("The variable %s is not defined, therefore its value cannot be returned", key));
+            throw new UndefinedKeywordException(String.format("The variable %s is not defined, therefore its value cannot be returned", key));
         }
         return aggregateMap.get(key);
     }
@@ -186,9 +187,9 @@ public class CrudeStateMachine implements StateMachine {
      *
      * @param key
      */
-    public void removeVariable(String key) throws InterpretationException {
+    public void removeVariable(String key) throws UndefinedKeywordException {
         if (!typeMap.containsKey(key)) {
-            throw new InterpretationException(String.format("The variable %s is not defined, therefore cannot be removed", key));
+            throw new UndefinedKeywordException(String.format("The variable %s is not defined, therefore cannot be removed", key));
         }
         VariableType type = typeMap.get(key);
         if (type == VariableType.DOUBLE) {
@@ -241,16 +242,5 @@ public class CrudeStateMachine implements StateMachine {
             ans += entry.getKey() + " = " + entry.getValue() + "\n";
         }
         return ans;
-    }
-
-    /**
-     * Look at the local variable and then the global variables for the queried variable.
-     *
-     * @return The value of the variable.
-     * @param key
-     */
-    @Override
-    public Object getValue(String key) {
-        return null;
     }
 }

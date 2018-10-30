@@ -1,6 +1,7 @@
 package model.impl;
 import engine.compiler.storage.StateMachine;
 import engine.errors.InterpretationException;
+import engine.errors.UndefinedKeywordException;
 import javafx.beans.property.SimpleBooleanProperty;
 import model.ClearListener;
 import model.PosAndAngle;
@@ -80,15 +81,15 @@ public class TurtleModelImpl implements TurtleModel {
     public PosAndAngle posAndAngleModel() { return pa;}
 
     @Override
-    public int setBackground(int index) throws InterpretationException {
-        var colorStr = memory.getValue("ColorIndex" + String.valueOf(index)).toString();
+    public int setBackground(int index) throws UndefinedKeywordException {
+        var colorStr = memory.getValueInGeneralForm("ColorIndex" + String.valueOf(index)).toString();
         uiListeners.forEach(listener -> listener.setBackground(colorStr));
         return index;
     }
 
     @Override
-    public int setPenColor(int index) throws InterpretationException {
-        var colorStr = memory.getValue("ColorIndex"+String.valueOf(index)).toString();
+    public int setPenColor(int index) throws UndefinedKeywordException {
+        var colorStr = memory.getValueInGeneralForm("ColorIndex"+String.valueOf(index)).toString();
         uiListeners.forEach(listener -> listener.setPenColor(colorStr));
         return index;
     }
@@ -100,8 +101,8 @@ public class TurtleModelImpl implements TurtleModel {
     }
 
     @Override
-    public int setShape(int index) throws InterpretationException {
-        var shapeStr = memory.getValue("ShapeIndex"+String.valueOf(index)).toString();
+    public int setShape(int index) throws UndefinedKeywordException {
+        var shapeStr = memory.getValueInGeneralForm("ShapeIndex"+String.valueOf(index)).toString();
         uiListeners.forEach(listener -> listener.setShape(shapeStr));
         return index;
     }

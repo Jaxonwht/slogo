@@ -54,7 +54,7 @@ public class UserFunction implements Expression {
         for (int i = 0; i < parameters.getListOfExpressions().size(); i++) {
             var desiredParameter = desiredParameters.getListOfVariables().get(i).getVariableName();
             if (turtleManager.memory().containsVariable(desiredParameter)){
-                oldGlobalMemory.setDouble(desiredParameter, (double)turtleManager.memory().getValue(desiredParameter));
+                oldGlobalMemory.setDouble(desiredParameter, (double)turtleManager.memory().getValueInGeneralForm(desiredParameter));
             }
             turtleManager.memory().setDouble(desiredParameter, parameters.getListOfExpressions().get(i).evaluate(turtleManager));
         }
@@ -63,7 +63,7 @@ public class UserFunction implements Expression {
             var desiredParameter = desiredParameters.getListOfVariables().get(i).getVariableName();
             turtleManager.memory().removeVariable(desiredParameters.getListOfVariables().get(i).getVariableName());
             if (oldGlobalMemory.containsVariable(desiredParameter)){
-                turtleManager.memory().setDouble(desiredParameter, (double)oldGlobalMemory.getValue(desiredParameter));
+                turtleManager.memory().setDouble(desiredParameter, (double)oldGlobalMemory.getValueInGeneralForm(desiredParameter));
             }
         }
         return ret;

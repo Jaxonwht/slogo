@@ -1,6 +1,7 @@
 package view;
 
 import engine.errors.InterpretationException;
+import engine.errors.UndefinedKeywordException;
 import javafx.animation.Animation;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
@@ -59,7 +60,7 @@ public class TurtleView implements ClearListener, UIListener {
             turtle.setX(turtleModel.getX());
             turtle.setY(turtleModel.getY());
             turtle.setRotate(-turtleModel.getAngle());
-        } catch (InterpretationException e) {
+        } catch (InterpretationException | UndefinedKeywordException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error Dialog");
             alert.setHeaderText("Something went wrong...");

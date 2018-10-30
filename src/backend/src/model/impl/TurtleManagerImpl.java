@@ -3,6 +3,7 @@ package model.impl;
 import engine.compiler.storage.StateMachine;
 import engine.errors.IllegalParameterException;
 import engine.errors.InterpretationException;
+import engine.errors.UndefinedKeywordException;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
@@ -81,7 +82,7 @@ public class TurtleManagerImpl implements TurtleManager {
     }
 
 
-    private <T> T batchOperation(TurtleOperations<T> ops) throws InterpretationException {
+    private <T> T batchOperation(TurtleOperations<T> ops) throws InterpretationException, UndefinedKeywordException {
         if(selected.size() == 0) throw new InterpretationException("None of the turtles were selected.");
         var results = new ArrayList<T>();
         ObservableMap<Integer, TurtleModel> integerTurtleModelObservableMap = turtleModels;
@@ -94,70 +95,70 @@ public class TurtleManagerImpl implements TurtleManager {
     }
 
     @Override
-    public double setPenDown(boolean down) throws InterpretationException {
+    public double setPenDown(boolean down) throws InterpretationException, UndefinedKeywordException {
         return batchOperation(t -> t.setPenDown(down));
     }
 
     @Override
-    public double setVisible(boolean visible) throws InterpretationException {
+    public double setVisible(boolean visible) throws InterpretationException, UndefinedKeywordException {
         return batchOperation(t -> t.setVisible(visible));
     }
 
     @Override
-    public double forward(double by) throws InterpretationException {
+    public double forward(double by) throws InterpretationException, UndefinedKeywordException {
         return batchOperation(t -> t.forward(by));
     }
 
     @Override
-    public double moveTo(double x, double y, boolean forcePenUp) throws InterpretationException {
+    public double moveTo(double x, double y, boolean forcePenUp) throws InterpretationException, UndefinedKeywordException {
         return batchOperation(t -> t.moveTo(x, y, forcePenUp));
     }
 
     @Override
-    public double setAngle(double angle) throws InterpretationException {
+    public double setAngle(double angle) throws InterpretationException, UndefinedKeywordException {
         return batchOperation(t -> t.setAngle(angle));
     }
 
     @Override
-    public double leftBy(double angle) throws InterpretationException {
+    public double leftBy(double angle) throws InterpretationException, UndefinedKeywordException {
         return batchOperation(t -> t.leftBy(angle));
     }
 
     @Override
-    public double getX() throws InterpretationException { return batchOperation(TurtleModel::getX); }
+    public double getX() throws InterpretationException, UndefinedKeywordException { return batchOperation(TurtleModel::getX); }
 
     @Override
-    public double getY() throws InterpretationException { return batchOperation(TurtleModel::getY); }
+    public double getY() throws InterpretationException, UndefinedKeywordException { return batchOperation(TurtleModel::getY); }
 
     @Override
-    public double getAngle() throws InterpretationException{ return batchOperation(TurtleModel::getAngle); }
+    public double getAngle() throws InterpretationException, UndefinedKeywordException { return batchOperation(TurtleModel::getAngle); }
 
     @Override
-    public boolean isPenDown() throws InterpretationException{ return batchOperation(TurtleModel::isPenDown);}
+    public boolean isPenDown() throws InterpretationException, UndefinedKeywordException { return batchOperation(TurtleModel::isPenDown);}
 
     @Override
-    public boolean isVisible() throws InterpretationException{ return batchOperation(TurtleModel::isVisible); }
+    public boolean isVisible() throws InterpretationException, UndefinedKeywordException { return batchOperation(TurtleModel::isVisible); }
 
     @Override
-    public double clear() throws InterpretationException { return batchOperation(TurtleModel::clear); }
+    public double clear() throws InterpretationException, UndefinedKeywordException { return batchOperation(TurtleModel::clear); }
 
     @Override
-    public int setBackground(int index) throws InterpretationException{
+    public int setBackground(int index) throws InterpretationException, UndefinedKeywordException {
         return batchOperation(t -> t.setBackground(index));
     }
 
     @Override
-    public int setPenColor(int index)throws InterpretationException {
+    public int setPenColor(int index) throws InterpretationException, UndefinedKeywordException {
         return batchOperation(t -> t.setPenColor(index));
     }
 
     @Override
-    public int setPenSize(int pixels)throws InterpretationException {
+    public int setPenSize(int pixels) throws InterpretationException, UndefinedKeywordException {
         return batchOperation(t -> t.setPenSize(pixels));
     }
 
     @Override
-    public int setShape(int index) throws InterpretationException{
+    public int setShape(int index) throws InterpretationException, UndefinedKeywordException {
         return batchOperation(t -> t.setShape(index));
     }
 

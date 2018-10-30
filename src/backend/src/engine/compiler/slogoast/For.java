@@ -54,7 +54,7 @@ public class For implements Expression {
             boolean reset = turtleManager.memory().containsVariable(variableName);
             double old = 0;
             if (reset){
-                old = (double)turtleManager.memory().getValue(variableName);
+                old = (double)turtleManager.memory().getValueInGeneralForm(variableName);
             }
 
             StateMachine memory = turtleManager.memory();
