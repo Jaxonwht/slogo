@@ -1,14 +1,15 @@
 package engine.autocorrect;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
+import engine.errors.UndefinedKeywordException;
+
+import java.util.*;
 
 public class Correction implements AutoCorrect {
     private Set<String> set;
 
-    public Correction() {}
+    public Correction() {
+        set = new HashSet<>();
+    }
 
     /**
      * Reads in a set of vocabulary in which the closest Strings are to be found.
@@ -17,7 +18,31 @@ public class Correction implements AutoCorrect {
      */
     @Override
     public void readSet(Set<String> vocab) {
-        set = vocab;
+        set.addAll(vocab);
+    }
+
+    /**
+     * This add a word to the set of vocabulary of the correction machine.
+     *
+     * @param word : A String to be added.
+     */
+    @Override
+    public void addWord(String word) {
+        set.add(word);
+    }
+
+    /**
+     * This removes a word from the set of vocabulary of the correction machine.
+     *
+     * @param word : A String to be removed.
+     * @throws UndefinedKeywordException
+     */
+    @Override
+    public void removeWord(String word) throws UndefinedKeywordException {
+        if (!set.contains(word)) {
+            throw new UndefinedKeywordException(String.format("The word \"%s\" is not defined, therefore it cannot be removed"));
+        }
+        set.remove(word);
     }
 
     /**
@@ -43,7 +68,7 @@ public class Correction implements AutoCorrect {
     }
 
     /**
-     * This method calculates the "distance" between any two Strings. A smaller "distance" indicates that the two Strings are more "similar" and a larger distance indicates that the two Strings are more "different".
+     * This method calculates the "distance" between any two Strings. A smaller "distance" indicates that the two Strings are more "similar" and a larger distance indicates that the two Strings are more "different". When the lengths of the two strings are different, their distance is calculated using the sliding screen algorithm.
      *
      * @param a: The first String to be compared.
      * @param b: The second String to be compared.

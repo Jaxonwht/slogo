@@ -1,5 +1,7 @@
 package engine.autocorrect;
 
+import engine.errors.UndefinedKeywordException;
+
 import java.util.*;
 
 /**
@@ -10,7 +12,9 @@ import java.util.*;
 public class Completion implements AutoCorrect {
         private Set<String> set;
 
-    public Completion() {}
+    public Completion() {
+        set = new HashSet<>();
+    }
 
     /**
      * Reads in a set of vocabulary in which the closest Strings are to be found.
@@ -19,7 +23,31 @@ public class Completion implements AutoCorrect {
      */
     @Override
     public void readSet(Set<String> vocab) {
-        set = vocab;
+        set.addAll(vocab);
+    }
+
+    /**
+     * This add a word to the set of vocabulary of the correction machine.
+     *
+     * @param word : A String to be added.
+     */
+    @Override
+    public void addWord(String word) {
+        set.add(word);
+    }
+
+    /**
+     * This removes a word from the set of vocabulary of the correction machine.
+     *
+     * @param word : A String to be removed.
+     * @throws UndefinedKeywordException
+     */
+    @Override
+    public void removeWord(String word) throws UndefinedKeywordException {
+        if (!set.contains(word)) {
+            throw new UndefinedKeywordException(String.format("The word \"%s\" is not defined, therefore it cannot be removed"));
+        }
+        set.remove(word);
     }
 
     /**
