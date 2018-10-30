@@ -43,7 +43,7 @@ public class Correction implements AutoCorrect {
     }
 
     /**
-     * This method calculates the "distance" between any two Strings. A smaller "distance" indicates that the two Strings are more "similar" and a larger distance indicates that the two Strings are more "different".
+     * This method calculates the "distance" between any two Strings. A smaller "distance" indicates that the two Strings are more "similar" and a larger distance indicates that the two Strings are more "different". When the lengths of the two strings are different, their distance is calculated using the sliding screen algorithm.
      *
      * @param a: The first String to be compared.
      * @param b: The second String to be compared.
