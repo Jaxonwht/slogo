@@ -33,6 +33,8 @@ public class Correction implements AutoCorrect {
             if (distance < min) {
                 min = distance;
                 ret = word;
+            } else if (distance == min && Math.abs(word.length() - input.length()) < Math.abs(ret.length() - input.length())) {
+                ret = word;
             }
         }
         return ret;
@@ -46,6 +48,22 @@ public class Correction implements AutoCorrect {
      * @return An int value suggesting how similar these two Strings are. This value should be non-negative and only zero when the two Strings are exactly the same.
      */
     private int calculateDistance(String a, String b) {
+        int result = 0;
+        if (a.length() == b.length()) {
+            for (int i = 0; i < a.length(); i++) {
+                if (a.charAt(i) != b.charAt(i)) {
+                    result++;
+                }
+            }
+            return result;
+        } else if (a.length() > b.length()) {
+            String temp = b;
+            b = a;
+            a = temp;
+        }
+        for (int i = 0; i < a.length(); i++) {
+            if (a.charAt(i) != b.charAt()) {
+        }
     }
 
     /**
