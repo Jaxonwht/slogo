@@ -25,7 +25,7 @@ public class LexerParserTester {
     public static void main(String[] args) {
         Lexer lexer = new CrudeLexer();
 //        String test = "dotimes [:d 4] [fd sin 50 back 5 6]";
-        String test = "to :petal [ :size ]\n" +
+        String test = " to hello to :petal [ :size ]\n" +
                 "[\n" +
                 "  repeat 2\n" +
                 "  [\n" +

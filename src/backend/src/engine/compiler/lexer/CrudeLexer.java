@@ -120,6 +120,9 @@ public class CrudeLexer implements Lexer {
                     try {
                         chunk = myLanguage.getSymbol(chunk);
                     } catch (UndefinedKeywordException e) {
+                        if (myTokens.isEmpty() || !myTokens.get(myTokens.size() - 1).getString().equals("MakeUserInstruction")) {
+                            throw e;
+                        }
                         myTokens.add(new Token(chunk, "Variable"));
                         start = end + 1;
                         end++;
@@ -134,6 +137,9 @@ public class CrudeLexer implements Lexer {
                 }
                 myTokens.add(new Token(chunk, type));
             } catch (UndefinedKeywordException e) {
+                if (input.charAt(end) == ' ' || input.charAt(end) == '\n') {
+                    throw new UndefinedKeywordException(String.format("The input String \"%s\" is not defined in the properties files", input.substring(start, end)));
+                }
                 end++;
             }
         }
