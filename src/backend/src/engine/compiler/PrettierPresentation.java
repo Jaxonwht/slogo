@@ -62,7 +62,33 @@ public class PrettierPresentation {
                 sb.append(c);
             }
         }
-        return sb.toString();
+        String raw = sb.toString();
+        return removeTrails(raw);
+    }
+
+    /**
+     * This method removes the newlines in front and back. It also removes indentation that all lines have in common.
+     *
+     * @param raw: The input raw String.
+     * @return A processed String.
+     */
+    private static String removeTrails(String raw) {
+        raw = raw.replaceAll("\\s+$", "");
+        raw = raw.replaceAll("^\\n+", "");
+        String[] lines = raw.split("\n");
+        int min = Integer.MAX_VALUE;
+        for (String line : lines) {
+            int numOfTabs = line.length() - line.replaceAll("^\t+", "").length();
+            if (numOfTabs < min) {
+                min = numOfTabs;
+            }
+        }
+        String ret = "";
+        for (String line : lines) {
+            ret += line.substring(min) +"\n";
+        }
+        ret = ret.substring(0, ret.length() - 1);
+        return ret;
     }
 
     /**

@@ -36,8 +36,7 @@ public class LexerParserTester {
                 "    pu fd 10 pd fd 10\n" +
                 "  ]\n" +
                 "]\n" +
-                "\n" +
-                "\ndashas";
+                "\n";
         try {
             lexer.readString(test);
         } catch (UndefinedKeywordException e) {
