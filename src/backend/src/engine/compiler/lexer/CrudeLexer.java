@@ -120,9 +120,9 @@ public class CrudeLexer implements Lexer {
                     try {
                         chunk = myLanguage.getSymbol(chunk);
                     } catch (UndefinedKeywordException e) {
-                        if (myTokens.isEmpty() || !myTokens.get(myTokens.size() - 1).getString().equals("MakeUserInstruction")) {
+                        /*if (myTokens.isEmpty() || !myTokens.get(myTokens.size() - 1).getString().equals("MakeUserInstruction")) {
                             throw e;
-                        }
+                        }*/
                         myTokens.add(new Token(chunk, "Variable"));
                         start = end + 1;
                         end++;

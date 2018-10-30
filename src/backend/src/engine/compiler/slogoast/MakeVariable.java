@@ -3,6 +3,7 @@ package engine.compiler.slogoast;
 import engine.compiler.Token;
 import engine.compiler.storage.VariableType;
 import engine.errors.InterpretationException;
+import engine.errors.UndefinedKeywordException;
 import model.TurtleManager;
 
 /**
@@ -39,7 +40,7 @@ public class MakeVariable implements Expression {
      * @throws InterpretationException
      */
     @Override
-    public double interpret(TurtleManager turtleManager) throws InterpretationException {
+    public double interpret(TurtleManager turtleManager) throws InterpretationException, UndefinedKeywordException {
         if (myToken.getString().equals("MakeVariable")) {
             double ret = myExpr.evaluate(turtleManager);
             turtleManager.memory().setVariable(myVar.getVariableName(), ret, VariableType.DOUBLE);

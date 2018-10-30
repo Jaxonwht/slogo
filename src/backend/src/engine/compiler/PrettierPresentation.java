@@ -1,7 +1,6 @@
 package engine.compiler;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
+import java.util.*;
 
 /**
  * This class contains a single static method that makes the String representation of an Expression prettier.
@@ -16,32 +15,48 @@ public class PrettierPresentation {
      * @return A more readable representation of the String.
      */
     public static String prettify(String expression) {
+        expression = expression.trim();
         Deque<Character> stack = new ArrayDeque<>();
-        if (expression.charAt(0) == '[' || expression.charAt(0) == '(' || expression.charAt(0) == '{') {
-            expression = expression.substring(1, expression.length() - 1);
+        List<Character> traverse = new LinkedList<>();
+        for (char c : expression.toCharArray()) {
+            if (Character.isWhitespace(c) || c == ',') {
+                continue;
+            }
+            traverse.add(c);
         }
         StringBuilder sb = new StringBuilder();
-        for (char c : expression.toCharArray()) {
+        for (ListIterator<Character> iter = traverse.listIterator(); iter.hasNext(); ) {
+            char c = iter.next();
+            iter.previous();
+            char last = '\0';
+            if (iter.hasPrevious()) {
+                last = iter.previous();
+                iter.next();
+                iter.next();
+            } else {
+                iter.next();
+            }
             if (c == '(' || c == '[' || c == '{') {
-                if (sb.length() != 0 && sb.charAt(sb.length() - 1) != '\n') {
+                /*if (last != '\n') {
                     sb.append('\n');
                 }
                 sb.append(charMultiplier('\t', stack.size()));
-                sb.append(c);
-                sb.append('\n');
+                sb.append(c);*/
                 stack.push(c);
             } else if (c == ')' || c == ']' || c == '}') {
                 stack.pop();
-                if (sb.length() != 0 && sb.charAt(sb.length() - 1) != '\n') {
+                /*if (last != '\n') {
                     sb.append('\n');
                 }
                 sb.append(charMultiplier('\t', stack.size()));
-                sb.append(c);
-                sb.append('\n');
+                sb.append(c);*/
             } else if (Character.isWhitespace(c) || c == ',') {
                 continue;
             } else {
-                if (sb.length() != 0 && sb.charAt(sb.length() - 1) == '\n') {
+                if (last == '\n') {
+                    sb.append(charMultiplier('\t', stack.size()));
+                } else if (last == '[' || last == ']' || last == '(' || last == ')' || last == '{' || last == '}') {
+                    sb.append('\n');
                     sb.append(charMultiplier('\t', stack.size()));
                 }
                 sb.append(c);

@@ -1,6 +1,7 @@
 package engine.compiler.slogoast;
 
 import engine.errors.InterpretationException;
+import engine.errors.UndefinedKeywordException;
 import model.TurtleManager;
 
 import java.io.*;
@@ -25,7 +26,7 @@ public interface Expression {
      * @return A double value returned by evaluating the expression.
      * @throws InterpretationException
      */
-    double interpret(TurtleManager turtleManager) throws InterpretationException;
+    double interpret(TurtleManager turtleManager) throws InterpretationException, UndefinedKeywordException;
 
     /**
      * This method evaluates the return value of the expression, without applying actual effects on the turtle.
@@ -34,7 +35,7 @@ public interface Expression {
      * @param turtleManager@return A double value returned by evaluating the expression.
      * @throws InterpretationException
      */
-    default double evaluate(TurtleManager turtleManager) throws InterpretationException {
+    default double evaluate(TurtleManager turtleManager) throws InterpretationException, UndefinedKeywordException {
         return interpret(turtleManager);
         /*ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ObjectOutputStream oos = null;

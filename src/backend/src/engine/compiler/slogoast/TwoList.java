@@ -2,6 +2,7 @@ package engine.compiler.slogoast;
 
 import engine.compiler.Token;
 import engine.errors.InterpretationException;
+import engine.errors.UndefinedKeywordException;
 import model.TurtleManager;
 import model.TurtleModel;
 import model.TurtleOperations;
@@ -43,7 +44,7 @@ public class TwoList implements Expression{
      * @throws InterpretationException
      */
     @Override
-    public double interpret(TurtleManager turtleManager) throws InterpretationException {
+    public double interpret(TurtleManager turtleManager) throws InterpretationException, UndefinedKeywordException {
         double ret = 0;
         List<Integer> oldSelected = turtleManager.selected();
         if (myToken.getString().equals("Ask")) {

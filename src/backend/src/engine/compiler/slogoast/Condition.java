@@ -3,6 +3,7 @@ package engine.compiler.slogoast;
 import engine.compiler.Token;
 import engine.compiler.storage.VariableType;
 import engine.errors.InterpretationException;
+import engine.errors.UndefinedKeywordException;
 import model.TurtleManager;
 
 /**
@@ -41,7 +42,7 @@ public class Condition implements Expression {
      * @throws InterpretationException
      */
     @Override
-    public double interpret(TurtleManager turtleManager) throws InterpretationException {
+    public double interpret(TurtleManager turtleManager) throws InterpretationException, UndefinedKeywordException {
         if (condition.getString().equals("If")) {
             if (expr.evaluate(turtleManager) != 0) {
                 return expressionList.interpret(turtleManager);

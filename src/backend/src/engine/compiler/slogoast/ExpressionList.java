@@ -1,6 +1,7 @@
 package engine.compiler.slogoast;
 
 import engine.errors.InterpretationException;
+import engine.errors.UndefinedKeywordException;
 import model.TurtleManager;
 
 import java.util.Arrays;
@@ -36,7 +37,7 @@ public class ExpressionList implements Expression {
      * @throws InterpretationException
      */
     @Override
-    public double interpret(TurtleManager turtleManager) throws InterpretationException {
+    public double interpret(TurtleManager turtleManager) throws InterpretationException, UndefinedKeywordException {
         double ret = 0;
         if (expressionList.isEmpty()) {
             return ret;
