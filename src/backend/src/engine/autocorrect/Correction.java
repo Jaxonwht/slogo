@@ -1,7 +1,9 @@
 package engine.autocorrect;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 public class Correction implements AutoCorrect {
     private Set<String> set;
@@ -61,9 +63,20 @@ public class Correction implements AutoCorrect {
             b = a;
             a = temp;
         }
+        int slider = 0;
         for (int i = 0; i < a.length(); i++) {
-            if (a.charAt(i) != b.charAt()) {
+            if (a.charAt(i) != b.charAt(i)) {
+                slider++;
+            }
         }
+        result = slider;
+        for (int i = 1; i <= b.length() - a.length(); i++) {
+            slider = slider - a.charAt(i - 1) != b.charAt(i - 1) ? 1 : 0 + a.charAt(i + a.length() - 1) != b.charAt(i + a.length() - 1) ? 1 : 0;
+            if (slider < result) {
+                result = slider;
+            }
+        }
+        return result;
     }
 
     /**
@@ -74,6 +87,18 @@ public class Correction implements AutoCorrect {
      */
     @Override
     public List<String> listClosestStrings(String input) {
-        return null;
+        Set<String> tempSet = new TreeSet<>((a, b) -> {
+            int distanceA = calculateDistance(a, input);
+            int distanceB = calculateDistance(b, input);
+            if (distanceA != distanceB) {
+                return distanceA - distanceB;
+            } else {
+                return Math.abs(a.length() - input.length()) - Math.abs(b.length() - input.length());
+            }
+        });
+        for (String word : set) {
+            tempSet.add(word);
+        }
+        return new ArrayList<>(tempSet);
     }
 }
