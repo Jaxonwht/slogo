@@ -481,7 +481,7 @@ public class CrudeParser implements Parser {
             throw generateSyntaxException("Illegal format for expression value after a keyword in the repeat or if loop", expressionPair.getValue());
         }
         if (!(expressionPair.getKey() instanceof Group) && !(expressionPair.getKey() instanceof Variable) && !(expressionPair.getKey() instanceof Direct)) {
-            throw generateSyntaxException("The expression directly after the keyword in a repeat or if statement has to be a direct command, a constant or an expression (including a single variable) bracketed by \"()\"", expressionPair.getValue());
+            throw generateSyntaxException("The expression directly after the keyword in a repeat or if statement has to be a direct command, a constant, a variable or an expression bracketed by \"()\"", expressionPair.getValue());
         }
         Pair<Expression, Integer> expressionListPair = parseExpressionList(expressionPair.getValue());
         if (expressionListPair.getKey() == null) {
