@@ -1,20 +1,16 @@
 package engine.autocorrect;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
- * This class handles the automatic completion of Strings at backend.
+ * This class handles the automatic completion of Strings at backend. Closeness is simply determined by the length difference between a vocabulary word and a target word.
  *
  * @author Haotian Wang
  */
 public class Completion implements AutoCorrect {
-    private Set<String> set;
+        private Set<String> set;
 
-    public Completion() {
-
-    }
+    public Completion() {}
 
     /**
      * Reads in a set of vocabulary in which the closest Strings are to be found.
@@ -34,24 +30,33 @@ public class Completion implements AutoCorrect {
      */
     @Override
     public String closestString(String input) {
-        Set<String> realVocab = new HashSet<>();
+        String ret = "";
+        int min = Integer.MAX_VALUE;
         for (String word : set) {
             if (word.startsWith(input)) {
-                realVocab.add(word);
+                if (word.length() < min) {
+                    min = word.length();
+                    ret = word;
+                }
             }
         }
-        
-        return null;
+        return ret;
     }
 
     /**
      * This gives a list of Strings that are viable, in ascending order of distance.
      *
-     * @param string : The input String.
+     * @param input : The input String.
      * @return A List of Strings.
      */
     @Override
-    public List<String> listClosestStrings(String string) {
-        return null;
+    public List<String> listClosestStrings(String input) {
+        Set<String> tempSet = new TreeSet<>(Comparator.comparingInt(String::length));
+        for (String word : set) {
+            if (word.startsWith(input)) {
+                tempSet.add(word);
+            }
+        }
+        return new ArrayList<>(tempSet);
     }
 }

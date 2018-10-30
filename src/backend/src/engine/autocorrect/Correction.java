@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Set;
 
 public class Correction implements AutoCorrect {
+    public Correction() {}
+
     /**
      * Reads in a set of vocabulary in which the closest Strings are to be found.
      *
@@ -17,22 +19,22 @@ public class Correction implements AutoCorrect {
     /**
      * This gives a closest String to the input String.
      *
-     * @param string : The input String
+     * @param input : The input String
      * @return A String that is closest to the input String.
      */
     @Override
-    public String closestString(String string) {
+    public String closestString(String input) {
         return null;
     }
 
     /**
      * This gives a list of Strings that are viable, in ascending order of distance.
      *
-     * @param string : The input String.
+     * @param input : The input String.
      * @return A List of Strings.
      */
     @Override
-    public List<String> listClosestStrings(String string) {
+    public List<String> listClosestStrings(String input) {
         return null;
     }
 }

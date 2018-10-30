@@ -19,16 +19,16 @@ public interface AutoCorrect {
     /**
      * This gives a closest String to the input String.
      *
-     * @param string: The input String
+     * @param input: The input String
      * @return A String that is closest to the input String.
      */
-    String closestString(String string);
+    String closestString(String input);
 
     /**
      * This gives a list of Strings that are viable, in ascending order of distance.
      *
-     * @param string: The input String.
+     * @param input: The input String.
      * @return A List of Strings.
      */
-    List<String> listClosestStrings(String string);
+    List<String> listClosestStrings(String input);
 }
