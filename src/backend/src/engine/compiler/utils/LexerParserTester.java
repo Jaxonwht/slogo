@@ -1,4 +1,4 @@
-package engine.compiler;
+package engine.compiler.utils;
 
 import engine.compiler.lexer.CrudeLexer;
 import engine.compiler.lexer.Lexer;
@@ -6,12 +6,9 @@ import engine.errors.CommandSyntaxException;
 import engine.compiler.parser.CrudeParser;
 import engine.compiler.parser.Parser;
 import engine.compiler.slogoast.Expression;
-import engine.errors.InterpretationException;
 import engine.errors.UndefinedKeywordException;
-import model.impl.TurtleManagerImpl;
 
 import java.util.List;
-import java.util.regex.Pattern;
 
 /**
  * This class handles the preliminary testing of Lexer, Parser and Interpreter.

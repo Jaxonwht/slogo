@@ -1,4 +1,4 @@
-package engine.compiler;
+package engine.compiler.utils;
 
 /**
  * This class represents a Token object used by the

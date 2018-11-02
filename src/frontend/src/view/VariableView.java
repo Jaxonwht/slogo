@@ -1,6 +1,7 @@
 package view;
 
 import engine.compiler.storage.StateMachine;
+import engine.compiler.utils.PrettierPresentation;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ScrollPane;
@@ -46,7 +47,7 @@ public class VariableView implements StateMachineObserver {
                 if(e.getClickCount() >= DOUBLE_CLICK) {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setHeaderText(k);
-                    alert.setContentText(v.toString());
+                    alert.setContentText(PrettierPresentation.prettify(v.toString()));
                     alert.showAndWait();
                 }
             });

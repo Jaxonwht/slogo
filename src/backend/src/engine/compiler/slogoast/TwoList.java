@@ -1,11 +1,9 @@
 package engine.compiler.slogoast;
 
-import engine.compiler.Token;
+import engine.compiler.utils.Token;
 import engine.errors.InterpretationException;
 import engine.errors.UndefinedKeywordException;
 import model.TurtleManager;
-import model.TurtleModel;
-import model.TurtleOperations;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -12,4 +12,3 @@ dash [8 20]
 rt 60
 dash [10 10]
 
-to x [ fd 10]

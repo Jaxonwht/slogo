@@ -6,4 +6,5 @@ module backend {
     exports engine.errors;
     exports engine.api;
     exports engine.compiler.storage;
+    exports engine.compiler.utils;
 }
