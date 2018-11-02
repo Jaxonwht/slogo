@@ -1,12 +1,12 @@
-to :fib [:n] [ifelse
+to fib [:n] [ifelse
 	[equal? :n 1] 
 	[1]
 	[ifelse 
 		[equal? :n 0]
 		[1]
 		[sum 
-			[:fib [difference :n 1]]
-			[:fib [difference :n 2]]
+			[fib [difference :n 1]]
+			[fib [difference :n 2]]
 		]
 	]
 ]
