@@ -83,7 +83,7 @@ public class Binary implements Expression {
             double newAngle = Math.toDegrees(Math.atan2(mySecondExpr.evaluate(turtleManager) - currentY, myFirstExpr.evaluate(turtleManager) - currentX));
             return turtleManager.setAngle(newAngle);
         } else if (myToken.getString().equals("SetPosition")){
-            return turtleManager.moveTo(myFirstExpr.evaluate(turtleManager), mySecondExpr.evaluate(turtleManager), true);
+            return turtleManager.moveTo(myFirstExpr.evaluate(turtleManager), mySecondExpr.evaluate(turtleManager), false);
         }
         return 0;
     }

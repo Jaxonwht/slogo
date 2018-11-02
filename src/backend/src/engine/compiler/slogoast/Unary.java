@@ -58,8 +58,11 @@ public class Unary implements Expression {
         else if (myToken.getString().equals("Minus")){
             return -1*value;
         }
-        else if (myToken.getString().equals("Sine")){
+        else if (myToken.getString().equals("Sin")){
             return Math.sin(Math.toRadians(value));
+        }
+        else if (myToken.getString().equals("Cos")) {
+            return Math.cos(Math.toRadians(value));
         }
         else if (myToken.getString().equals("Tangent")){
             return Math.tan(Math.toRadians(value));
