@@ -98,8 +98,7 @@ public class TurtleView implements ClearListener, UIListener {
             var newY = newValue.y();
             var newAngle = newValue.angle();
 
-
-            var path = makePath(newX, newY, duration.doubleValue(),tempX,tempY);
+            var path = makePath(newX, newY, duration.doubleValue(),tempX,tempY, penColor, strokeSize.getValue());
             var animation = animationQueue.makeAnimation(turtle, path, newAngle, duration, oldAngle);
             oldAngle = newAngle;
             tempX = newX + TURTLE_SIZE/2;
@@ -110,6 +109,8 @@ public class TurtleView implements ClearListener, UIListener {
 
     private void setupAnimation(TurtleModel turtleModel, double newX, double newY, double newAngle, Animation animation) {
         var capturedPenDown = penDown.getValue();
+        var capturedPenSize = strokeSize.getValue();
+        var capturedPenColor = Color.valueOf(penColor.toString());
 
         animation.currentTimeProperty().addListener((e, o, n) -> {
 
@@ -120,7 +121,10 @@ public class TurtleView implements ClearListener, UIListener {
                     views.getChildren().remove(views.getChildren().size() - 1);
                 }
                 if (newX != turtle.getX() || newY != turtle.getY()) {
-                    views.getChildren().add(makePath(newX, newY, n.toMillis(), turtle.getX() + TURTLE_SIZE / 2, turtle.getY() + TURTLE_SIZE / 2));
+                    views.getChildren().add(makePath(
+                            newX, newY, n.toMillis(), turtle.getX() + TURTLE_SIZE / 2, turtle.getY() + TURTLE_SIZE / 2,
+                            capturedPenColor, capturedPenSize)
+                    );
                 }
             }
         });
@@ -136,7 +140,7 @@ public class TurtleView implements ClearListener, UIListener {
         });
     }
 
-    private Path makePath(double newX, double newY, double o, double oldX, double oldY) {
+    private Path makePath(double newX, double newY, double o, double oldX, double oldY, Color penColor, double strokeSize) {
         var path = new Path();
         if(o == duration.doubleValue())
             path.setFill(penColor);
@@ -145,7 +149,7 @@ public class TurtleView implements ClearListener, UIListener {
         double currentY = turtle.getY()+TURTLE_SIZE/2+o/duration.doubleValue() *(newY-turtle.getY());
         path.getElements().add(new LineTo(currentX,currentY));
         path.setStroke(penColor);
-        path.setStrokeWidth(strokeSize.getValue());
+        path.setStrokeWidth(strokeSize);
         return path;
     }
 

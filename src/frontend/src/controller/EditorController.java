@@ -38,6 +38,7 @@ public class EditorController {
             double ret = engineApi.processString(cmd);
             historyView.addText(cmd, ret);
         }  catch (Exception e) {
+            e.printStackTrace();
             historyView.displayError(cmd, e);
         }
     }

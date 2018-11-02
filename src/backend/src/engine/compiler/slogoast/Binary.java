@@ -64,7 +64,7 @@ public class Binary implements Expression {
             int secondInt = (int) second;
             if (firstInt != first || secondInt != second) {
                 throw new InterpretationException("The two values used for a Remainder operation must be integers");
-            }
+            } return firstInt % secondInt;
         } else if (myToken.getString().equals("Power")) {
             return Math.pow(myFirstExpr.evaluate(turtleManager), mySecondExpr.evaluate(turtleManager));
         } else if (myToken.getString().equals("LessThan")) {
