@@ -1,7 +1,6 @@
 package engine.compiler.slogoast;
 
-import engine.compiler.Token;
-import engine.errors.InterpretationException;
+import engine.compiler.utils.Token;
 import model.TurtleManager;
 
 /**

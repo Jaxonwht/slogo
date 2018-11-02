@@ -1,6 +1,6 @@
 package engine.api;
 
-import engine.compiler.Token;
+import engine.compiler.utils.Token;
 import engine.compiler.lexer.CrudeLexer;
 import engine.compiler.lexer.Lexer;
 import engine.compiler.parser.CrudeParser;

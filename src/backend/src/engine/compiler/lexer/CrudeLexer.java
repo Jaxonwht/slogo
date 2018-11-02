@@ -1,7 +1,6 @@
 package engine.compiler.lexer;
 
-import engine.compiler.Token;
-import engine.errors.CommandSyntaxException;
+import engine.compiler.utils.Token;
 import engine.compiler.translator.LanguageTranslator;
 import engine.compiler.translator.TypeTranslator;
 import engine.errors.UndefinedKeywordException;

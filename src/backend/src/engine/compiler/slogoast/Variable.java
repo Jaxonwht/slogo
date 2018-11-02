@@ -1,6 +1,6 @@
 package engine.compiler.slogoast;
 
-import engine.compiler.Token;
+import engine.compiler.utils.Token;
 import engine.compiler.storage.VariableType;
 import engine.errors.InterpretationException;
 import engine.errors.UndefinedKeywordException;
