@@ -1,3 +1,4 @@
+# calculate fibonacci number
 to fib [:n] [ifelse
 	[equal? :n 1] 
 	[1]
@@ -10,3 +11,44 @@ to fib [:n] [ifelse
 		]
 	]
 ]
+
+# move in fibonacci spiral
+to fibSpiral [:y] [
+    repeat :y [
+        fd quotient product :y fib [:repcount] 5
+        left 90
+    ]
+]
+
+# draw colorful spiral
+doTimes [:x 1000] [
+    setPalette 1
+        remainder * :x 2 255
+        remainder * :x 4 255
+        remainder * :x 6 255
+    setPenColor 1
+    ifElse equal? remainder :x 2 1
+        [fd :x]
+        [lt 1 bk :x]
+]
+
+# more colorful spiral
+to crazy [:x :a :b :c] [
+    repeat :x [
+        setPalette 1
+            remainder * :repcount :a 255
+            remainder * :repcount :b 255
+            remainder * :repcount :c 255
+        setPenColor 1
+        ifElse equal? remainder :repcount 2 1
+            [fd :repcount]
+            [lt 1 bk :repcount]
+    ]
+]
+
+repeat 10 [
+    tell[:repcount]
+    left product :repcount 36
+    house[product 30 :repcount]
+]
+
