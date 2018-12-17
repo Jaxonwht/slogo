@@ -6,6 +6,7 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableSet;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -15,10 +16,7 @@ import javafx.scene.shape.Rectangle;
 import model.TurtleModel;
 import view.utils.BackgroundUtils;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  *  Manages multiple Turtle Views, listening to how their view list changes
@@ -76,6 +74,14 @@ public class CanvasView {
         for (var idx : turtleViews.keySet()) {
             turtleViews.get(idx).turtle().setOpacity(selected.contains(idx) ? 1 : 0.5);
         }
+    }
+
+    public void addStamps(Collection<ImageView> stamps) {
+        root.getChildren().addAll(stamps);
+    }
+
+    public void removeStamps(Collection<ImageView> stamps) {
+        root.getChildren().removeAll(stamps);
     }
 
 

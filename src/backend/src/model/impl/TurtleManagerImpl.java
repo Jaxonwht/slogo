@@ -19,6 +19,7 @@ public class TurtleManagerImpl implements TurtleManager {
     private ObservableMap<Integer, TurtleModel> turtleModels;
     private List<Integer> selected;
     private List<SelectionListener> selectionListeners;
+    private StampListener stampListener;
 
     public TurtleManagerImpl() {
         turtleModels = FXCollections.observableMap(new HashMap<>());
@@ -175,4 +176,34 @@ public class TurtleManagerImpl implements TurtleManager {
     public void registerClearListener(ClearListener cl) { }
     @Override
     public void registerUIListener(UIListener listener) { }
+
+    /**
+     * This method returns the index of the image that gets stamped, to stamp the current turtles at where they are.
+     *
+     * @return Index of the image that gets stamped.
+     */
+    @Override
+    public double stamp() {
+        return stampListener.updateOnStamp();
+    }
+
+    /**
+     * This method clears the stamps on the current canvas.
+     *
+     * @return 1 if stamps are cleared and 0 otherwise.
+     */
+    @Override
+    public double clearStamps() {
+        return stampListener.updateOnClearStamps();
+    }
+
+    /**
+     * This method sets the turtlemanager up for registering Stamp events with a StampListener.
+     *
+     * @param listener: A StampListener.
+     */
+    @Override
+    public void setStampListener(StampListener listener) {
+        stampListener = listener;
+    }
 }

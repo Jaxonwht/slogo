@@ -61,4 +61,25 @@ public interface TurtleManager extends TurtleModel {
 
     void registerSelectionListener(SelectionListener listener);
     void registerUIListener(UIListener listener);
+
+    /**
+     * This method returns the index of the image that gets stamped, to stamp the current turtles at where they are.
+     *
+     * @return Index of the image.
+     */
+    double stamp();
+
+    /**
+     * This method clears the stamps on the current canvas.
+     *
+     * @return 1 if stamps are cleared and 0 otherwise.
+     */
+    double clearStamps();
+
+    /**
+     * This method sets the turtlemanager up for registering Stamp events with a StampListener.
+     *
+     * @param listener: A StampListener.
+     */
+    void setStampListener(StampListener listener);
 }
