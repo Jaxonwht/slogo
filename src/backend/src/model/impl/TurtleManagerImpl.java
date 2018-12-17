@@ -184,7 +184,7 @@ public class TurtleManagerImpl implements TurtleManager {
      */
     @Override
     public double stamp() {
-        return 0;
+        return stampListener.updateOnStamp();
     }
 
     /**
@@ -194,7 +194,7 @@ public class TurtleManagerImpl implements TurtleManager {
      */
     @Override
     public double clearStamps() {
-        return 0;
+        return stampListener.updateOnClearStamps();
     }
 
     /**

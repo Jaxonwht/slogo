@@ -6,7 +6,7 @@ package model;
  * @author Haotian Wang
  */
 public interface StampListener {
-    void updateOnStamp();
+    double updateOnStamp();
 
-    void updateOnClearStamps();
+    double updateOnClearStamps();
 }
