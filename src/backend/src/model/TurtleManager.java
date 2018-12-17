@@ -61,4 +61,18 @@ public interface TurtleManager extends TurtleModel {
 
     void registerSelectionListener(SelectionListener listener);
     void registerUIListener(UIListener listener);
+
+    /**
+     * This method always returns 1, to stamp the current turtles at where they are.
+     *
+     * @return Always 1.
+     */
+    double stamp();
+
+    /**
+     * This method clears the stamps on the current canvas.
+     *
+     * @return 1 if stamps are cleared and 0 otherwise.
+     */
+    double clearStamps();
 }

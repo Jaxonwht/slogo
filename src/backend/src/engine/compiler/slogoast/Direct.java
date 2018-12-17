@@ -85,6 +85,12 @@ public class Direct implements Expression {
         else if (myToken.getType().equals("Constant")){
             return Double.parseDouble(myToken.getString());
         }
+        else if (myToken.getType().equals("Stamp")) {
+            return turtleManager.stamp();
+        }
+        else if (myToken.getType().equals("ClearStamps")) {
+            return turtleManager.clearStamps();
+        }
         return 0;
     }
 }
