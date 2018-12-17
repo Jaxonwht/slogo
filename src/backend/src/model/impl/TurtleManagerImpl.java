@@ -175,4 +175,24 @@ public class TurtleManagerImpl implements TurtleManager {
     public void registerClearListener(ClearListener cl) { }
     @Override
     public void registerUIListener(UIListener listener) { }
+
+    /**
+     * This method returns the index of the image that gets stamped, to stamp the current turtles at where they are.
+     *
+     * @return Index of the image that gets stamped.
+     */
+    @Override
+    public double stamp() {
+        return 1;
+    }
+
+    /**
+     * This method clears the stamps on the current canvas.
+     *
+     * @return 1 if stamps are cleared and 0 otherwise.
+     */
+    @Override
+    public double clearStamps() {
+        return 0;
+    }
 }

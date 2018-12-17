@@ -63,9 +63,9 @@ public interface TurtleManager extends TurtleModel {
     void registerUIListener(UIListener listener);
 
     /**
-     * This method always returns 1, to stamp the current turtles at where they are.
+     * This method returns the index of the image that gets stamped, to stamp the current turtles at where they are.
      *
-     * @return Always 1.
+     * @return Index of the image.
      */
     double stamp();
 
