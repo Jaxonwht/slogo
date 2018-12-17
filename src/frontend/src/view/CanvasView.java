@@ -16,10 +16,7 @@ import javafx.scene.shape.Rectangle;
 import model.TurtleModel;
 import view.utils.BackgroundUtils;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  *  Manages multiple Turtle Views, listening to how their view list changes
@@ -79,8 +76,12 @@ public class CanvasView {
         }
     }
 
-    public void addStamps(ObservableSet<ImageView> stamps) {
+    public void addStamps(Collection<ImageView> stamps) {
         root.getChildren().addAll(stamps);
+    }
+
+    public void removeStamps(Collection<ImageView> stamps) {
+        root.getChildren().removeAll(stamps);
     }
 
 

@@ -6,6 +6,7 @@ import javafx.beans.property.DoubleProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableSet;
+import javafx.collections.SetChangeListener;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -30,7 +31,7 @@ public class CanvasController implements SelectionListener, StampListener {
     private double pivotX, pivotY;
     private Image turtleImage;
     private static final double TURTLE_SIZE = 50;
-    private ObservableSet<ImageView> stamps;
+    private Set<ImageView> stamps;
 
     public CanvasController(TurtleManager turtleManager, CanvasView canvasView) {
         this.turtleManager = turtleManager;
@@ -38,8 +39,7 @@ public class CanvasController implements SelectionListener, StampListener {
         this.canvasView = canvasView;
         this.turtleManager.setStampListener(this);
         turtleImage = new Image(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("turtle_1.png")));
-        stamps = FXCollections.observableSet();
-        canvasView.addStamps(stamps);
+        stamps = new HashSet<>();
         setupTurtleManager();
         selectionX = selectionY = 0;
         setupSelectionRectangle();
@@ -140,11 +140,13 @@ public class CanvasController implements SelectionListener, StampListener {
             stamp.setFitHeight(TURTLE_SIZE);
             stamps.add(stamp);
         });
+        canvasView.addStamps(stamps);
         return 0;
     }
 
     @Override
     public double updateOnClearStamps() {
+        canvasView.removeStamps(stamps);
         if (stamps.isEmpty()) {
             return 0;
         } else {
