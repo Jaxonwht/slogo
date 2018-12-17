@@ -134,6 +134,7 @@ public class CanvasController implements SelectionListener, StampListener {
             try {
                 stamp.setX(turtleModel.getX());
                 stamp.setY(turtleModel.getY());
+                stamp.setRotate(turtleModel.getAngle());
             } catch (InterpretationException | UndefinedKeywordException ignored) {
             }
             stamp.setFitWidth(TURTLE_SIZE);
