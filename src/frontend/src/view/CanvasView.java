@@ -6,6 +6,7 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableSet;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -76,6 +77,10 @@ public class CanvasView {
         for (var idx : turtleViews.keySet()) {
             turtleViews.get(idx).turtle().setOpacity(selected.contains(idx) ? 1 : 0.5);
         }
+    }
+
+    public void addStamps(ObservableSet<ImageView> stamps) {
+        root.getChildren().addAll(stamps);
     }
 
 

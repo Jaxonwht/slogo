@@ -1,32 +1,45 @@
 package controller;
 
+import engine.errors.InterpretationException;
+import engine.errors.UndefinedKeywordException;
 import javafx.beans.property.DoubleProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.MapChangeListener;
+import javafx.collections.ObservableSet;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import model.ModelModule;
-import model.SelectionListener;
-import model.TurtleManager;
-import model.TurtleModel;
+import model.*;
 import view.CanvasView;
+import view.utils.ImageUtils;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 /**
  *  Interfaces between the Turtle Manager and Canvas View
  */
-public class CanvasController implements SelectionListener {
+public class CanvasController implements SelectionListener, StampListener {
     private TurtleManager turtleManager;
     private CanvasView canvasView;
     private double selectionX, selectionY;
     private double pivotX, pivotY;
+    private Image turtleImage;
+    private static final double TURTLE_SIZE = 50;
+    private ObservableSet<ImageView> stamps;
 
     public CanvasController(TurtleManager turtleManager, CanvasView canvasView) {
         this.turtleManager = turtleManager;
         this.turtleManager.registerSelectionListener(this);
         this.canvasView = canvasView;
+        this.turtleManager.setStampListener(this);
+        turtleImage = new Image(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("turtle_1.png")));
+        stamps = FXCollections.observableSet();
+        canvasView.addStamps(stamps);
         setupTurtleManager();
         selectionX = selectionY = 0;
         setupSelectionRectangle();
@@ -100,7 +113,10 @@ public class CanvasController implements SelectionListener {
     }
 
     public void setPenColor(Color c) { turtleManager.selected().forEach(idx -> canvasView.setPenColor(idx, c)); }
-    public void setTurtleImage(Image img) { turtleManager.selected().forEach(idx -> canvasView.setImage(idx, img));}
+    public void setTurtleImage(Image img) {
+        turtleManager.selected().forEach(idx -> canvasView.setImage(idx, img));
+        turtleImage = img;
+    }
     public void bindDuration(DoubleProperty model) { canvasView.durationProperty().bind(model); }
     public void bindStroke(DoubleProperty stroke) { canvasView.strokeProperty().bindBidirectional(stroke); }
     public void setBackgroundColor(Color c) { canvasView.setBackgroundColor(c); }
@@ -108,5 +124,32 @@ public class CanvasController implements SelectionListener {
     @Override
     public void selectionUpdated(List<Integer> selected) {
         canvasView.highlightSelected(selected);
+    }
+
+    @Override
+    public double updateOnStamp() {
+        stamps.clear();
+        turtleManager.turtleModels().values().forEach(turtleModel -> {
+            ImageView stamp = new ImageView(turtleImage);
+            try {
+                stamp.setX(turtleModel.getX());
+                stamp.setY(turtleModel.getY());
+            } catch (InterpretationException | UndefinedKeywordException ignored) {
+            }
+            stamp.setFitWidth(TURTLE_SIZE);
+            stamp.setFitHeight(TURTLE_SIZE);
+            stamps.add(stamp);
+        });
+        return 0;
+    }
+
+    @Override
+    public double updateOnClearStamps() {
+        if (stamps.isEmpty()) {
+            return 0;
+        } else {
+            stamps.clear();
+            return 1;
+        }
     }
 }
