@@ -75,4 +75,11 @@ public interface TurtleManager extends TurtleModel {
      * @return 1 if stamps are cleared and 0 otherwise.
      */
     double clearStamps();
+
+    /**
+     * This method sets the turtlemanager up for registering Stamp events with a StampListener.
+     *
+     * @param listener: A StampListener.
+     */
+    void setStampListener(StampListener listener);
 }

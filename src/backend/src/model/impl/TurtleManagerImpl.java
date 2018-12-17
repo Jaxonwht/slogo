@@ -19,6 +19,7 @@ public class TurtleManagerImpl implements TurtleManager {
     private ObservableMap<Integer, TurtleModel> turtleModels;
     private List<Integer> selected;
     private List<SelectionListener> selectionListeners;
+    private StampListener stampListener;
 
     public TurtleManagerImpl() {
         turtleModels = FXCollections.observableMap(new HashMap<>());
@@ -183,7 +184,7 @@ public class TurtleManagerImpl implements TurtleManager {
      */
     @Override
     public double stamp() {
-        return 1;
+        return 0;
     }
 
     /**
@@ -194,5 +195,15 @@ public class TurtleManagerImpl implements TurtleManager {
     @Override
     public double clearStamps() {
         return 0;
+    }
+
+    /**
+     * This method sets the turtlemanager up for registering Stamp events with a StampListener.
+     *
+     * @param listener: A StampListener.
+     */
+    @Override
+    public void setStampListener(StampListener listener) {
+        stampListener = listener;
     }
 }
